@@ -12,7 +12,7 @@
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-
+#define BUFFER_SIZE 1024
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
@@ -24,10 +24,11 @@
 char *buffer;
 
 char *get_next_line(int fd);
-char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strjoin(char *s1, char *s2, size_t len_s1, size_t len_s2);
+char	*ft_cut_line(char *line, char *buffer);
 int	ft_strlcpy(char *dest, const char *src, size_t size);
 int	ft_strlcat(char *dest, const char *src, unsigned int size);
-int	ft_strlen(const char *str);
-// int	ft_strlen(const char *str);
+int	ft_strlen(char *str);
+int	ft_breakline_exists(char *buffer);
 
 #endif
