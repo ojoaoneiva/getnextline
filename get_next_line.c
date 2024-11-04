@@ -18,7 +18,7 @@ char *get_next_line(int fd)
     char *line;
     int bytesToRead;
 
-if (fd < 0 || BUFFER_SIZE <= 0)
+if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
 		return (NULL);
 line = NULL;
 // se o buffer já existir
@@ -26,7 +26,7 @@ line = NULL;
         line = ft_strjoin(line, buffer, ft_strlen(line), ft_strlen(buffer));
         
 // se for a primeira leitura ou ultima
-    if (ft_breakline_exists(line)==-1)
+    while (ft_breakline_exists(line)==-1)
     {
         bytesToRead = read(fd,buffer,BUFFER_SIZE);
         buffer[bytesToRead] = '\0';
@@ -60,40 +60,40 @@ line = NULL;
 // }
 
 
-int main(int argc, char **argv)
-{
-	int fd;
-    char *fileName = "text.txt";
-    char *result;
+// int main(int argc, char **argv)
+// {
+// 	int fd;
+//     char *fileName = "text.txt";
+//     char *result;
 
-    if (argc > 1)
-        fileName = argv[1];
-    fd = open(fileName, O_RDWR);
-    if (fd < 0)
-    {
-        perror("Error opening file");
-        return 1;
-    }
+//     if (argc > 1)
+//         fileName = argv[1];
+//     fd = open(fileName, O_RDWR);
+//     if (fd < 0)
+//     {
+//         perror("Error opening file");
+//         return 1;
+//     }
 
-    while ((result = get_next_line(fd)) != NULL)
-    {
-        printf("%s", result);
-        free(result);
-    }
-    close(fd);
-    return 0;
-    // int fd;
-    // char* fileName = "text.txt";
-	// char *result;
-    // if (argc > 1)
-    //     fileName = argv[1];
-    // fd = open(fileName, O_RDWR);
-    // result = get_next_line(fd);
-	// printf("%s", result);
-	// result = get_next_line(fd);
-	// printf("%s", result);
-	// // if(!result)
-	// // 	free(result);
-	// // else
-	// // 	printf("%s", result);
-}
+//     while ((result = get_next_line(fd)) != NULL)
+//     {
+//         printf("%s", result);
+//         free(result);
+//     }
+//     close(fd);
+//     return 0;
+//     // int fd;
+//     // char* fileName = "text.txt";
+// 	// char *result;
+//     // if (argc > 1)
+//     //     fileName = argv[1];
+//     // fd = open(fileName, O_RDWR);
+//     // result = get_next_line(fd);
+// 	// printf("%s", result);
+// 	// result = get_next_line(fd);
+// 	// printf("%s", result);
+// 	// // if(!result)
+// 	// // 	free(result);
+// 	// // else
+// 	// // 	printf("%s", result);
+// }
