@@ -21,11 +21,10 @@ char *get_next_line(int fd)
 if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
 		return (NULL);
 line = NULL;
-// se o buffer já existir
+
     if (buffer[0] != '\0')
         line = ft_strjoin(line, buffer, ft_strlen(line), ft_strlen(buffer));
-        
-// se for a primeira leitura ou ultima
+
     while (ft_breakline_exists(line)==-1)
     {
         bytesToRead = read(fd,buffer,BUFFER_SIZE);
@@ -40,24 +39,25 @@ line = NULL;
     return(ft_cut_line(line, buffer));
 }
 
-// int main(int argc, char **argv)
-// {
-//     int fd;
-//     char* fileName = "text.txt";
-// 	char *result;
-//     if (argc > 1)
-//         fileName = argv[1];
-//     fd = open(fileName, O_RDWR);
-//     result = get_next_line(fd);
-// 	printf("%s", result);
-// 	result = get_next_line(fd);
-// 	printf("%s", result);
-// 	// if(!result)
-// 	// 	free(result);
-// 	// else
-// 	// 	printf("%s", result);
-		
-// }
+int main(int argc, char **argv)
+{
+    int fd;
+    char* fileName = "text.txt";
+	char *result;
+    if (argc > 1)
+        fileName = argv[1];
+    fd = open(fileName, O_RDONLY);
+    result = get_next_line(fd);
+	printf("%s", result);
+    if(!result)
+		free(result);
+
+	result = get_next_line(fd);
+	printf("%s", result);
+    if(!result)
+		free(result);
+    return (0);
+}
 
 
 // int main(int argc, char **argv)
@@ -82,18 +82,4 @@ line = NULL;
 //     }
 //     close(fd);
 //     return 0;
-//     // int fd;
-//     // char* fileName = "text.txt";
-// 	// char *result;
-//     // if (argc > 1)
-//     //     fileName = argv[1];
-//     // fd = open(fileName, O_RDWR);
-//     // result = get_next_line(fd);
-// 	// printf("%s", result);
-// 	// result = get_next_line(fd);
-// 	// printf("%s", result);
-// 	// // if(!result)
-// 	// // 	free(result);
-// 	// // else
-// 	// // 	printf("%s", result);
 // }
